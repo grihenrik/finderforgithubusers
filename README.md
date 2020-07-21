@@ -1,5 +1,7 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+This is a simple project written in React, it pulls GitHub users information from the GitHub API. To install it you have to get yourself api keys from developers at github.com.
+
 ## Available Scripts
 
 In the project directory, you can run:
