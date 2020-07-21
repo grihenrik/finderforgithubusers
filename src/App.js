@@ -68,11 +68,7 @@ class App extends Component {
   static cv=""
   captureValue = (e)=>this.setState({ [e.target.name]: e.target.value });
   
-  clickHandler(e) {
-    e.preventDefault();
-    console.log("Final: "+this.state.value);
-    Username.changeValue(this.state.value).bind(this);
-  }
+  
   render(){
     const {users, user, repos, loading} = this.state;
     if(users){
@@ -89,9 +85,7 @@ class App extends Component {
             render={props=>(
               <Fragment>
               <div>
-                <button onClick={this.clickHandler.bind(this)} >Change Username</button>
-                <input type="text" name="value" value={this.state.value} onChange={this.captureValue}/>
-                <Username value = {this.state.value} />
+                
                 <Search 
                   searchGithubUsers={ this.searchGithubUsers }
                   setAlert={this.setAlert}

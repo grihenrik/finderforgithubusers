@@ -98,6 +98,13 @@ img {
   text-align: left;
 }
 
+/* Image box shadow*/
+.my-img{
+  -webkit-box-shadow: 5px 3px 12px 5px rgba(44,44,43,0.36);
+  -moz-box-shadow: 5px 3px 12px 5px rgba(44,44,43,0.36);
+  box-shadow: 5px 3px 12px 5px rgba(44,44,43,0.36);
+}
+
 /* Center All */
 .all-center {
   display: flex;
