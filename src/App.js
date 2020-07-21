@@ -37,6 +37,7 @@ class App extends Component {
     
     
   }
+  
   //uname = "";
   // componentDidMount()
   // {
@@ -52,7 +53,10 @@ class App extends Component {
     console.log("Searching for github user containing the phrase "+search);
     this.setState({loading: true});
     const getJSON = bent('json');
-    let githubUsers = getJSON(`https://api.github.com/search/users?q=${search}&client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`);
+    let githubUsers = getJSON(`https://api.github.com/search/users?q=${search}
+      &client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}
+      &client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`);
+    githubUsers.then({headers:{"Accept":"application/vnd.github.v3+json"}});
     githubUsers.then((data)=>{
       this.setState({users: data.items, loading: false, alert:null});
     });
@@ -62,7 +66,10 @@ class App extends Component {
     console.log(userToSearch);
     this.setState({loading: true});
     const getJSON = bent('json');
-    let githubUsers = getJSON(`https://api.github.com/users/${userToSearch}?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`);
+    let githubUsers = getJSON(`https://api.github.com/users/${userToSearch}?
+      client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}
+      &client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`);
+    githubUsers.then({headers:{"Accept":"application/vnd.github.v3+json"}});
     githubUsers.then((data)=>{
       this.setState({user: data, loading: false, alert:null});
     });
@@ -73,6 +80,7 @@ class App extends Component {
     this.setState({loading: true});
     const getJSON = bent('json');
     let githubUsers = getJSON(`https://api.github.com/users/${gituhubUser}/repos?per_page=5&sort=created:asc&client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`);
+    githubUsers.then({headers:{"Accept":"application/vnd.github.v3+json"}});
     githubUsers.then((data)=>{
       this.setState({repos: data, loading: false, alert:null});
     });
@@ -94,6 +102,7 @@ class App extends Component {
   }
   render(){
     const {users, user, repos, loading} = this.state;
+    if(users){
     let showClearButton = users.length>0?true:false;
     return (
       <Router>
@@ -138,6 +147,9 @@ class App extends Component {
       </div>
       </Router>
     );
+    } else {
+      return "Searching..."
+    }
   }
   
 }
