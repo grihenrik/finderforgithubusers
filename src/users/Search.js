@@ -19,7 +19,7 @@ export class Search extends Component {
             this.props.setAlert('Please enter search parameter', 'light');
 
         } else{
-            //console.log(this.state.search);
+
             this.props.searchGithubUsers(this.state.search);
             this.setState({search : ""});
         }

@@ -8,24 +8,7 @@ import { Alert } from './layout/Alert';
 import { Navbar } from './layout/Navbar';
 import { About } from './pages/About';
 import { User } from './users/User';
-class Username extends Component {
-  state = { value: ""};
-  changeValue= (value)=> {
-    value.preventDefault();
-    console.log("Change value:"+value);
-  //   // const unameTmp = value.target.value;
-  //   // this.uname({ value: unameTmp });
-  //   // console.log("Uname: "+this.uname.value);
-  }
 
-  render(){
-    
-      const { value } = this.props;
-      return <h1>{value}</h1>;
-    
-    
-  };
-}
 class App extends Component {
   state ={
     users: [],
@@ -38,17 +21,7 @@ class App extends Component {
     
   }
   
-  //uname = "";
-  // componentDidMount()
-  // {
-  //   this.setState({loading: true});
-  //   const getJSON = bent('json');
-  //   let githubUsers = getJSON(`https://api.github.com/users?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`);
-  //   githubUsers.then((data)=>{
-  //     this.setState({users: data, loading: false});
-  //   });
-    
-  // }
+
   searchGithubUsers=(search)=>{
     console.log("Searching for github user containing the phrase "+search);
     this.setState({loading: true});
@@ -153,10 +126,5 @@ class App extends Component {
   }
   
 }
-// clearUsers={this.clearUsers}
-// showClear={users.lenght >0?true:false}
+
 export default App;
-// {showClear&&<button className="btn btn-light btn-block" 
-//                   onClick={clearGithubUsers}>Clear</button>}
-                  // clearUsers={this.clearGithubUsers}
-                  //showClear={this.state.users.lenght > 0?true:false}
