@@ -1,18 +1,21 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment, useEffect, useContext } from 'react';
 import {Link }from 'react-router-dom';
 import Spinner from '../layout/Spinner';
-import PropTypes from 'prop-types';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {library }from '@fortawesome/fontawesome-svg-core';
 import {fas, faCheck, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import Repos from '../repos/Repos';
+import GithubContext from '../context/github/githubContext';
 library.add(fas, faCheck, faTimesCircle)
 
-export const User = ({user, repos,loading, getGithubUserRepos, getGithubUser, match})=> {
+export const User = ({match})=> {
+    const githubContext = useContext(GithubContext);
+    const {user, repos, loading, getGithubUser, getGithubUserRepos} = githubContext;
     useEffect(()=>{
         getGithubUser(match.params.login);
         getGithubUserRepos(match.params.login);
-        // esLint-disable-next-line
+        // eslint-disable-next-line
     },[]);
 
     const { 
@@ -41,7 +44,7 @@ export const User = ({user, repos,loading, getGithubUserRepos, getGithubUser, ma
                 {hireable ? <FontAwesomeIcon icon={faCheck} className="text-success"/>: <FontAwesomeIcon icon={faTimesCircle} className="text-danger"/>}
                 </p>
                 <div className='card grid-2'>
-                    <div className='all-center'>
+                    <div className=' all-center'>
                         <img src={avatar_url} alt={login} className='round-img' style={{width: '150px'}}/>
                         <h1>{name}</h1>
                         <p>{location}</p>
@@ -83,11 +86,5 @@ export const User = ({user, repos,loading, getGithubUserRepos, getGithubUser, ma
     
 
 }
-User.propTypes = {
-    loading: PropTypes.bool,
-    user: PropTypes.object.isRequired,
-    repos: PropTypes.array.isRequired,
-    getGithubUser: PropTypes.func.isRequired,
-    getGithubUserRepos: PropTypes.func.isRequired,
-}
+
 export default User
