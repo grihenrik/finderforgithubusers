@@ -7,6 +7,16 @@ import { SEARCH_USERS,
     GET_USER, 
     GET_REPOS, CLEAR_USERS}from '../types'
 
+let githubClientId;
+let githubClientSecret;
+if(process.env.NODE_ENV!=='production'){
+  githubClientId = process.env.REACT_APP_GITHUB_CLIENT_ID;
+  githubClientSecret = process.env.REACT_APP_GITHUB_CLIENT_SECRET;
+} else {
+  githubClientId = process.env.GITHUB_CLIENT_ID;
+  githubClientSecret = process.env.GITHUB_CLIENT_SECRET;
+}
+
 const GithubState = (props) => {
     const initialState = {
         users: [],
@@ -24,7 +34,7 @@ const GithubState = (props) => {
         setLoading();
         const getJSON = bent('json');
         let githubUsers = getJSON(`https://api.github.com/search/users?q=${search}
-          &client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}
+          &client_id=${githubClientId}
           &client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`);
         githubUsers.then({headers:{"Accept":"application/vnd.github.v3+json"}});
         githubUsers.then((data)=>{
@@ -43,8 +53,8 @@ const GithubState = (props) => {
         setLoading();
         const getJSON = bent('json');
         let githubUsers = getJSON(`https://api.github.com/users/${userToSearch}?
-          client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}
-          &client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`);
+          client_id=${githubClientId}
+          &client_secret=${githubClientSecret}`);
         githubUsers.then({headers:{"Accept":"application/vnd.github.v3+json"}});
         githubUsers.then((data)=>{
           dispatch({
@@ -61,7 +71,7 @@ const GithubState = (props) => {
 
         setLoading();
         const getJSON = bent('json');
-        let githubUsers = getJSON(`https://api.github.com/users/${gituhubUser}/repos?per_page=5&sort=created:asc&client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`);
+        let githubUsers = getJSON(`https://api.github.com/users/${gituhubUser}/repos?per_page=5&sort=created:asc&client_id=${githubClientId}&client_secret=${githubClientSecret}`);
         githubUsers.then({headers:{"Accept":"application/vnd.github.v3+json"}});
         githubUsers.then((data)=>{
             dispatch({
