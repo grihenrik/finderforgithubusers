@@ -35,7 +35,7 @@ const GithubState = (props) => {
         const getJSON = bent('json');
         let githubUsers = getJSON(`https://api.github.com/search/users?q=${search}
           &client_id=${githubClientId}
-          &client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`);
+          &client_secret=${githubClientSecret}`);
         githubUsers.then({headers:{"Accept":"application/vnd.github.v3+json"}});
         githubUsers.then((data)=>{
             dispatch({
